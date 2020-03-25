@@ -1,0 +1,30 @@
+:root {
+	--dark-bg: hsl(207, 26%, 17%);
+	--light-bg: hsl(0, 0%, 98%);
+	--dark-box: hsl(209, 23%, 22%);
+	--light-box: hsl(0, 0%, 100%);
+	--light-text: hsl(200, 15%, 8%);
+	--light-input: hsl(0, 0%, 52%);
+	--white: hsl(0, 0%, 100%);
+}
+
+*,
+*::before,
+*::after {
+	margin: inherit;
+	padding: inherit;
+	box-sizing: inherit;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	font-family: 'Nunito Sans', sans-serif;
+	box-sizing: border-box;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+html {
+	font-size: 62.5%;
+}
