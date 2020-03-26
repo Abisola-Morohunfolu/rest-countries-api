@@ -1,0 +1,71 @@
+.Filter {
+	display: flex;
+	background-color: var(--bg);
+	padding: 1.5rem 3rem;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.Filter svg {
+	height: 1.4rem;
+	width: 1.4rem;
+	margin-left: 5px;
+	stroke: var(--input);
+}
+
+.SearchBox {
+	position: relative;
+	background-color: var(--box);
+	border-radius: 4px;
+	padding: 1rem 1.5rem;
+	display: flex;
+	align-items: center;
+	width: 40%;
+}
+
+.SearchBox input {
+	font-family: inherit;
+	font-size: 1.4rem;
+	font-weight: 300;
+	background-color: transparent;
+	border: none;
+	outline: none;
+	color: var(--text);
+	margin-left: 2rem;
+	flex: 0 0 80%;
+}
+
+.SearchBox input::-webkit-input-placeholder {
+	color: var(--input);
+}
+
+.SelectBox {
+	background-color: var(--box);
+	border-radius: 4px;
+	padding: 1rem 1.5rem;
+	position: relative;
+}
+
+/* .SelectBox label {
+	color: var(--input);
+	font-family: inherit;
+	font-size: 1.4rem;
+	font-weight: 600;
+} */
+
+.SelectBox select {
+	background-color: var(--box);
+	outline: none;
+	border: none;
+	color: var(--input);
+	font-family: inherit;
+	font-size: 1.4rem;
+	font-weight: 600;
+}
+
+.SelectBox select option {
+	background-color: inherit;
+	color: inherit;
+	font-size: inherit;
+	font-family: inherit;
+}

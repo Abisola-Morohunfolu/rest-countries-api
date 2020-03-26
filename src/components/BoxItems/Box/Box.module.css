@@ -1,0 +1,41 @@
+.Box {
+	width: 25rem;
+	background-color: var(--box);
+	margin: 3rem;
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+	border-radius: 5px;
+}
+
+.BoxImage {
+	height: 50%;
+	width: 100%;
+	margin-bottom: 2rem;
+}
+
+.BoxImage img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.BoxText {
+	padding: 1.5rem;
+	color: var(--text);
+}
+
+.MainHeading {
+	font-weight: 800;
+	font-size: 1.6rem;
+	margin-bottom: 1rem;
+}
+
+.SubHeading {
+	font-size: 1.2rem;
+	padding: 5px 0;
+}
+
+.SubHeading span:last-child {
+	font-weight: 300;
+}

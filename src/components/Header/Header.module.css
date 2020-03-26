@@ -1,0 +1,32 @@
+.Header {
+	padding: 1rem 3rem;
+	box-shadow: 0 3px 1rem rgba(0, 0, 0, 0.3);
+	background-color: var(--box);
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.Header h1 {
+	color: var(--text);
+}
+
+.Header .Button {
+	background-color: transparent;
+	font-size: 1.4rem;
+	font-family: inherit;
+	font-weight: 600;
+	color: var(--text);
+	border: none;
+	outline: none;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+}
+
+.Header svg {
+	height: 1.4rem;
+	width: 1.4rem;
+	fill: var(--text);
+	margin-right: 5px;
+}

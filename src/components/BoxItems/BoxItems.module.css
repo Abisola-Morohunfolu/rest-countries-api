@@ -1,0 +1,7 @@
+.BoxItems {
+	display: flex;
+	flex-wrap: wrap;
+	padding: 1.5rem 3rem;
+	background-color: var(--bg);
+	justify-content: center;
+}
