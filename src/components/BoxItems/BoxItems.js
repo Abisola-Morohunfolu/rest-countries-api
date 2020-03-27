@@ -1,12 +1,24 @@
 import React from 'react';
 import classes from './BoxItems.module.css';
 import Box from './Box/Box';
+import Loader from '../UI/Loader/Loader';
 
 const boxItems = props => {
-	if (props.data === null) {
-		return null;
+	if (props.loading) {
+		return <Loader />;
 	}
 
+	if (props.data === null) {
+		return (
+			<div style={{ height: '100vh', backgroundColor: 'var(--bg)', textAlign: 'center' }}>
+				<p style={{ fontSize: '1.6rem', color: 'var(--text)' }}>
+					Something went wrong! Reload Page
+				</p>
+			</div>
+		);
+	}
+
+	//return searched items
 	if (props.search) {
 		return (
 			<div className={classes.BoxItems}>
@@ -19,6 +31,7 @@ const boxItems = props => {
 							region={country.region}
 							population={country.population}
 							capital={country.capital}
+							clicked={() => props.click(country.name)}
 						/>
 					);
 				})}
@@ -37,6 +50,7 @@ const boxItems = props => {
 						region={country.region}
 						population={country.population}
 						capital={country.capital}
+						clicked={() => props.click(country.name)}
 					/>
 				);
 			})}

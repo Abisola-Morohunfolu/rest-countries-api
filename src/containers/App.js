@@ -3,11 +3,11 @@ import { ThemeContext } from '../context/ThemeContext';
 import Header from '../components/Header/Header';
 import axios from 'axios';
 import { Switch, Route } from 'react-router';
-import Home from '../components/Home/Home';
 import Filter from '../components/Filter/Filter';
 import Country from '../components/Country/Country';
-// import { Switch, Route } from 'react-router-dom';
+import BoxItems from '../components/BoxItems/BoxItems';
 
+//get current color mode from local storage
 const colorModeStore = localStorage.getItem('darkmode');
 const currentColorMode = colorModeStore ? 'dark' : 'light';
 
@@ -17,7 +17,8 @@ class App extends Component {
 		selectedCountry: null,
 		colorMode: currentColorMode,
 		errorMessage: null,
-		searchResult: null
+		searchResult: null,
+		isLoading: false
 	};
 	static contextType = ThemeContext;
 
@@ -32,7 +33,11 @@ class App extends Component {
 		}
 	};
 
+	//fecth all countries data
 	fetchData = () => {
+		this.setState({
+			isLoading: true
+		});
 		try {
 			axios
 				.get('https://restcountries.eu/rest/v2/all')
@@ -40,7 +45,8 @@ class App extends Component {
 					if (response.data) {
 						this.setState({
 							allCountries: response.data,
-							errorMessage: null
+							errorMessage: null,
+							isLoading: false
 						});
 					}
 				})
@@ -59,19 +65,64 @@ class App extends Component {
 		this.fetchData();
 	}
 
+	//search and filter countries
 	changedInputHadler = event => {
 		const inputValue = event.target.value.toLowerCase();
-		const allCountries = [...this.state.allCountries];
 
-		const result = allCountries.filter(
-			country =>
-				country.name.toLowerCase().includes(inputValue) ||
-				country.region.toLowerCase().includes(inputValue)
-		);
+		//filter if there is a state
+		if (this.state.allCountries) {
+			const allCountries = [...this.state.allCountries];
+
+			const result = allCountries.filter(
+				country =>
+					country.name.toLowerCase().includes(inputValue) ||
+					country.region.toLowerCase().includes(inputValue)
+			);
+			this.setState({
+				...this.state,
+				searchResult: result
+			});
+		}
+	};
+
+	//fecth a selected country
+	fetchCountry = async country => {
 		this.setState({
-			...this.state,
-			searchResult: result
+			isLoading: true
 		});
+		axios.get(`https://restcountries.eu/rest/v2/name/${country}`).then(response => {
+			this.setState({
+				...this.state,
+				selectedCountry: response.data[0],
+				isLoading: false
+			});
+		});
+	};
+
+	selectCountryHandler = name => {
+		const countryName = name.toLowerCase();
+		this.fetchCountry(countryName);
+	};
+
+	//fetch country with code
+	fetchCountryWithCode = async country => {
+		this.setState({
+			isLoading: true
+		});
+		axios.get(`https://restcountries.eu/rest/v2/alpha/${country}`).then(response => {
+			console.log(response);
+			this.setState({
+				...this.state,
+				selectedCountry: response.data,
+				isLoading: false
+			});
+		});
+	};
+
+	selectBorderCountryHandler = code => {
+		console.log(code);
+		const countryCode = code.toLowerCase();
+		this.fetchCountryWithCode(countryCode);
 	};
 
 	render() {
@@ -79,12 +130,6 @@ class App extends Component {
 			...this.context[this.state.colorMode]
 		};
 
-		const SingleCountry = ({ match }) => {
-			const param = match.params.country.toLowerCase();
-			const filtered = this.state.allCountries.filter(country => country.name !== param)[0];
-
-			return <Country country={filtered} />;
-		};
 		return (
 			<div className="App" style={currentTheme}>
 				<Header
@@ -97,10 +142,24 @@ class App extends Component {
 						exact
 						path="/"
 						component={() => (
-							<Home allCountries={this.state.allCountries} searchResult={this.state.searchResult} />
+							<BoxItems
+								data={this.state.allCountries}
+								search={this.state.searchResult}
+								click={this.selectCountryHandler}
+								loading={this.state.isLoading}
+							/>
 						)}
 					/>
-					<Route path="/:country" component={SingleCountry} />
+					<Route
+						path="/about-country"
+						component={() => (
+							<Country
+								country={this.state.selectedCountry}
+								loading={this.state.isLoading}
+								selectBorder={this.selectBorderCountryHandler}
+							/>
+						)}
+					/>
 				</Switch>
 			</div>
 		);

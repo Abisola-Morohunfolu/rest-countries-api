@@ -30,3 +30,9 @@
 	fill: var(--text);
 	margin-right: 5px;
 }
+
+@media only screen and (max-width: 37.5em) {
+	.Header h1 {
+		font-size: 1.8rem;
+	}
+}

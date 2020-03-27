@@ -1,4 +1,95 @@
 .Country {
-    display: flex;
-    margin: 4rem 3rem;
+	display: flex;
+	flex-direction: column;
+	padding: 4rem 3rem;
+	align-items: flex-start;
+	background-color: var(--bg);
+	min-height: calc(100vh - 3.5rem);
+}
+
+.Country svg {
+	height: 1.3rem;
+	width: 1.3rem;
+	margin-right: 5px;
+	stroke: var(--text);
+}
+
+.CountrySection {
+	width: 100%;
+	margin-top: 6rem;
+	display: flex;
+	align-items: center;
+	height: calc(100vh / 2);
+	/* justify-content: space-between; */
+	color: var(--text);
+}
+
+.ImgBox {
+	height: 100%;
+	min-width: 40%;
+	max-width: 50%;
+	margin-right: 4rem;
+}
+
+.ImgBox img {
+	height: 100%;
+	width: 100%;
+	object-fit: cover;
+}
+
+.MainHeading {
+	font-size: 2.8rem;
+	margin-bottom: 2rem;
+	font-weight: 800;
+}
+
+.InfoText {
+	display: flex;
+	flex-wrap: wrap;
+	margin-bottom: 2rem;
+}
+
+.SubHeading {
+	font-size: 1.4rem;
+	flex: 0 0 45%;
+	margin-bottom: 1rem;
+}
+
+.SubHeading span:last-child {
+	font-weight: 300;
+}
+
+.BorderBox {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+}
+
+.BorderBox h5 {
+	font-size: 1.5rem;
+	font-weight: 600;
+	margin-right: 2rem;
+}
+
+.BorderBox button {
+	margin-right: 1rem;
+}
+
+@media only screen and (max-width: 768px) {
+	.CountrySection {
+		flex-direction: column;
+		align-items: flex-start;
+	}
+
+	.ImgBox {
+		margin-bottom: 2rem;
+		max-width: 100%;
+		margin-right: 0;
+	}
+}
+
+@media only screen and (max-width: 37.5em) {
+	.InfoText {
+		flex-direction: column;
+	}
 }

@@ -8,28 +8,28 @@ const formatString = numb => {
 
 const box = props => {
 	return (
-		<section className={classes.Box}>
-			<div className={classes.BoxImage}>
-				<img src={props.img} alt={props.name} />
-			</div>
-			<div className={classes.BoxText}>
-				<Link to={`/${props.name}`}>
+		<Link to="/about-country" onClick={props.clicked}>
+			<section className={classes.Box}>
+				<div className={classes.BoxImage}>
+					<img src={props.img} alt={props.name} />
+				</div>
+				<div className={classes.BoxText}>
 					<h3 className={classes.MainHeading}>{props.name}</h3>
-				</Link>
-				<h5 className={classes.SubHeading}>
-					<span>Population: </span>
-					<span>{formatString(props.population)}</span>
-				</h5>
-				<h5 className={classes.SubHeading}>
-					<span>Region: </span>
-					<span>{props.region}</span>
-				</h5>
-				<h5 className={classes.SubHeading}>
-					<span>Capital: </span>
-					<span>{props.capital}</span>
-				</h5>
-			</div>
-		</section>
+					<h5 className={classes.SubHeading}>
+						<span>Population: </span>
+						<span>{formatString(props.population)}</span>
+					</h5>
+					<h5 className={classes.SubHeading}>
+						<span>Region: </span>
+						<span>{props.region}</span>
+					</h5>
+					<h5 className={classes.SubHeading}>
+						<span>Capital: </span>
+						<span>{props.capital}</span>
+					</h5>
+				</div>
+			</section>
+		</Link>
 	);
 };
 

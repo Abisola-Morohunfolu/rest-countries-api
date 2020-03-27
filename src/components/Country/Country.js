@@ -1,29 +1,32 @@
 import React from 'react';
 import classes from './Country.module.css';
 import { ReactComponent as Arrow } from '../../assets/arrow-back-outline.svg';
+import Button from '../UI/Button';
+import Loader from '../UI/Loader/Loader';
+import Redirect from './RedirectBtn';
+
+const formatString = numb => {
+	return numb.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+};
 
 const Country = props => {
-	// const {
-	// 	img,
-	// 	name,
-	// 	nativeName,
-	// 	population,
-	// 	region,
-	// 	topLevelDomain,
-	// 	currencies,
-	// 	languages,
-	// 	subregion,
-	// 	capital
-	// } = props.country;
+	if (props.loading) {
+		return <Loader />;
+	}
+
+	if (props.country === null) {
+		return <Redirect />;
+	}
 	return (
 		<div className={classes.Country}>
-			<button>
+			<Button route="/">
 				<Arrow />
 				Back
-			</button>
-			<section className={classes.Country}>
+			</Button>
+
+			<section className={classes.CountrySection}>
 				<div className={classes.ImgBox}>
-					<img src={props.country.img} alt={props.country.name} />
+					<img src={props.country.flag} alt={props.country.name} />
 				</div>
 				<div className={classes.TextBox}>
 					<h3 className={classes.MainHeading}>{props.country.name}</h3>
@@ -38,11 +41,11 @@ const Country = props => {
 						</h5>
 						<h5 className={classes.SubHeading}>
 							<span>Population: </span>
-							<span>{props.country.population}</span>
+							<span>{formatString(props.country.population)}</span>
 						</h5>
 						<h5 className={classes.SubHeading}>
 							<span>Currencies: </span>
-							<span>{props.country.currencies.name}</span>
+							<span>{props.country.currencies[0].name}</span>
 						</h5>
 						<h5 className={classes.SubHeading}>
 							<span>Region: </span>
@@ -50,7 +53,12 @@ const Country = props => {
 						</h5>
 						<h5 className={classes.SubHeading}>
 							<span>Languages: </span>
-							<span>{props.country.languages.map(lang => lang.name)}</span>
+
+							<span>
+								{props.country.languages.map(lang => {
+									return lang.name + ' ';
+								})}
+							</span>
 						</h5>
 						<h5 className={classes.SubHeading}>
 							<span>Sub Region: </span>
@@ -60,6 +68,22 @@ const Country = props => {
 							<span>Capital: </span>
 							<span>{props.country.capital}</span>
 						</h5>
+					</div>
+					<div className={classes.BorderBox}>
+						<h5>Borders Countries: </h5>
+						{props.country.borders.length !== 0 ? (
+							props.country.borders.map(border => (
+								<Button
+									route="/about-country"
+									clicked={() => props.selectBorder(border)}
+									key={border}
+								>
+									{border}
+								</Button>
+							))
+						) : (
+							<span style={{ fontSize: '1.2rem' }}>None</span>
+						)}
 					</div>
 				</div>
 			</section>
